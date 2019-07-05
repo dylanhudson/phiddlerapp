@@ -8,8 +8,6 @@ const port = 3000
 app.use(express.static('public'))
 app.get('/',(req, res) => {res.sendFile(__dirname + '/index.html');})
 
-app.get('/mymusic',(req, res) => {RunPython("generate.py", res);})
-
 //RunPython("generate.py", res))
 app.listen(port, () => console.log(`Example App listening on port ${port}!`))
 
@@ -21,7 +19,7 @@ function RunPython(script, res){
     console.log(abc);
     res.send(ABCJS.renderAbc(abc));
   })
-
+//app.get('/mymusic',(req, res) => {RunPython("generate.py", res);})
 }
 
 function prepareStringRes (notes) {

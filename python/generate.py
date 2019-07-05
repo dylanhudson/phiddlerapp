@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Mar  1 19:43:28 2019
-
+@author: vivshaw
 @author: dylan
 """
 
@@ -17,10 +17,11 @@ parser.add_argument("--key", "-k", help="key selection")
 
 args = parser.parse_args()
 
-key = args.key()
+key = args.key
 
+raw_notes = key + ".txt"
 
-with open("rawnotes.txt") as corpus_file:
+with open(raw_notes) as corpus_file:
     corpus = corpus_file.read()
 
 
@@ -32,11 +33,14 @@ decoding = {i: c for i, c in enumerate(chars)}
 bar_length = 75
 corpus_length = len(corpus)
 
-with open("model.yaml") as model_file:
+model_name = key + ".yaml"
+weights_file = key + ".hdf5"
+
+with open(model_name) as model_file:
     architecture = model_file.read()
 
 model = model_from_yaml(architecture)
-model.load_weights("weights.hdf5")
+model.load_weights(weights_file)
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 
 seed = randint(0, corpus_length - bar_length)
